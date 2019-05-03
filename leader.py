@@ -171,14 +171,19 @@ class GoForward():
         # Twist is a datatype for velocity
         move_cmd = Twist()
 	# let's go forward at 0.2 m/s
-        move_cmd.linear.x = 0.2
+        move_cmd.linear.x = 0.3
 	# let's turn at 0 radians/s
 	#move_cmd.angular.z = 0
 
         #let's turn at 45 deg/s
         turn_cmd = Twist()
         turn_cmd.linear.x = 0
-        turn_cmd.angular.z = radians(50); #45 deg/s in radians/s
+        turn_cmd.angular.z = radians(90); #45 deg/s in radians/s
+
+        #let's turn at -45 deg/s
+        turn_cmd2 = Twist()
+        turn_cmd2.linear.x = 0
+        turn_cmd2.angular.z = radians(-90); #45 deg/s in radians/s
 
 
 
@@ -209,16 +214,16 @@ class GoForward():
 						continue
 					print("***************************up  right**********************************")
 					i = 1
-					for x in range(0,90):
+					for x in range(0,50):
 				    		self.cmd_vel.publish(move_cmd)
 						print("moving forward")
 				    		# wait for 0.1 seconds (10 HZ) and publish again
 				    		r.sleep()
-					for x in range(0,60):
-						self.cmd_vel.publish(turn_cmd)
+					for x in range(0,10):
+						self.cmd_vel.publish(turn_cmd2)
 						print("ROUND MOVEEE")
 						r.sleep() 
-					for x in range(0,70):
+					for x in range(0,60):
 				    		self.cmd_vel.publish(move_cmd)
 						print("moving forward")
 				    		# wait for 0.1 seconds (10 HZ) and publish again
@@ -230,15 +235,16 @@ class GoForward():
 						print("break out")
 						continue
 					i = 2
-					for x in range(0,35):
+					for x in range(0,25):
 						self.cmd_vel.publish(turn_cmd)
 						print("ROUND MOVEEE")
 						r.sleep() 
-					for x in range(0,120):
+					for x in range(0,80):
 				    		self.cmd_vel.publish(move_cmd)
 						print("moving forward")
 				    		# wait for 0.1 seconds (10 HZ) and publish again
 				    		r.sleep()
+
 
 
                 cv2.imshow('Test Frame', frame)
